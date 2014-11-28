@@ -37,7 +37,7 @@ $config_update = chop($config_update, "\n");
 $stats = array('ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update, 'loggerFuncVersion' => $logger_func_version, 'blacklistFuncVersion' => $blacklist_func_version, 'monitoringFuncVersion' => $monitoring_func_version);
 echo json_encode($stats);
 
-// if you change json with xml format.
+// you can use it, if you change json with xml format.
 function xml_encode($mixed, $domElement=null, $DOMDocument=null) {
     if (is_null($DOMDocument)) {
         $DOMDocument =new DOMDocument;
