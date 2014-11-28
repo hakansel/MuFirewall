@@ -1,7 +1,6 @@
 #!/usr/local/bin/php -f
 <?php
 
-/*require_once("/home/monitoring/guiconfig.inc");*/
 require_once("/home/monitoring/functions.inc.php");
 
 $ip = `/sbin/ifconfig re1 | /usr/bin/grep 'inet ' | /usr/bin/awk '{print $2}'`;
