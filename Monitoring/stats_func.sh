@@ -31,7 +31,7 @@ $config_update = chop($config_update, "\n");
 
 $stats = array('ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update);
 echo json_encode($stats);
-/*
+
 function xml_encode($mixed, $domElement=null, $DOMDocument=null) {
     if (is_null($DOMDocument)) {
         $DOMDocument =new DOMDocument;
@@ -70,7 +70,7 @@ function xml_encode($mixed, $domElement=null, $DOMDocument=null) {
         }
     }
 }
-*/
+
 exit;
 
 ?>
