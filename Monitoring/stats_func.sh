@@ -19,16 +19,22 @@ $avail_disk = `/bin/df -h | /usr/bin/grep -w '/' | /usr/bin/awk '{print $4}'`;
 $avail_disk = chop($avail_disk, "\n");
 $disk = disk_usage();
 $uptime = get_uptime();
-$blacklist_version = `/bin/cat /home/FirewallUpdater/Blacklist/blacklist.version`;
+$blacklist_version = `/bin/ls -l -D %Y%m%d-%H%M%S /sbin/blacklist_update.sh | awk '{ print $6 }'`;
 $blacklist_version = chop($blacklist_version, "\n");
-$logger_version = `/bin/cat /home/FirewallUpdater/Logger/logger.version`;
+$blacklist_func_version = `/bin/ls -l -D %Y%m%d-%H%M%S /home/blocked/blocked_func.sh | awk '{ print $6 }'`;
+$blacklist_func_version = chop($blacklist_func_version, "\n");
+$logger_version = `/bin/ls -l -D %Y%m%d-%H%M%S /sbin/dhcplistcronsmb.sh | awk '{ print $6 }'`;
 $logger_version = chop($logger_version, "\n");
-$monitoring_version = `/bin/cat /home/FirewallUpdater/Monitoring/monitoring.version`;
+$logger_func_version = `/bin/ls -l -D %Y%m%d-%H%M%S /home/trafficlog/killactivetcpdump.sh | awk '{ print $6 }'`;
+$logger_func_version = chop($logger_func_version, "\n");
+$monitoring_version = `/bin/ls -l -D %Y%m%d-%H%M%S /sbin/monitorservice.sh | awk '{ print $6 }'`;
 $monitoring_version = chop($monitoring_version, "\n");
+$monitoring_func_version = `/bin/ls -l -D %Y%m%d-%H%M%S /home/monitoring/stats_func.sh | awk '{ print $6 }'`;
+$monitoring_func_version = chop($monitoring_func_version, "\n");
 $config_update = `/bin/ls -l -D %Y%m%d-%H%M%S /cf/conf/config.xml | awk '{ print $6 }'`;
 $config_update = chop($config_update, "\n");
 
-$stats = array('ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update);
+$stats = array('ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update, 'loggerFuncVersion' => $logger_func_version, 'blacklistFuncVersion' => $blacklist_func_version, 'monitoringFuncVersion' => $monitoring_func_version);
 echo json_encode($stats);
 
 // if you change json with xml format.
