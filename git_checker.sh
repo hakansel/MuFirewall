@@ -44,7 +44,6 @@ else
 	#replace new files with the old one until there are no running script. 
 	if [ `ps aux | grep $F_S_LOGGER | grep -v grep | wc -l` == 0 ];
 		then
-			echo $F_S_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER $P_L_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
@@ -53,7 +52,6 @@ else
 
 	if [ `ps aux | grep $F_S_MONITORING | grep -v grep | wc -l` == 0 ];
 		then
-			echo $F_S_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING $P_L_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
@@ -62,7 +60,6 @@ else
 
 	if [ `ps aux | grep $F_S_BLACKLIST | grep -v grep | wc -l` == 0 ];
 		then
-			echo $F_S_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST $P_L_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
@@ -71,7 +68,6 @@ else
 
 	if [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` == 0 ];
 		then
-			echo $F_S_GIT_CHECKER
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER			
 	fi
