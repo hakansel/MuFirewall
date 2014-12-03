@@ -48,15 +48,16 @@ if [ "$RES_PULL" = "Already up-to-date." ];
 	then
 		logger -s $RES_PULL
 else
-	#replace new files with the old one until there are no runninc script. 
+	#replace new files with the old one until there are no running script. 
 	while [ `ps aux | grep $F_S_LOGGER | grep -v grep | wc -l` -eq 0 ];
 		do
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER $P_L_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER_TOOL $P_L_LOGGER_FUNC
-			if[ $? -eq 0 ]; then
-				logger -s "Logger script updated at $TARIH"
+			if[ $? -eq 0 ]; 
+				then
+					logger -s "Logger script updated at "$TARIH
 			fi
 	done
 
@@ -66,8 +67,9 @@ else
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING $P_L_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING_FUNC $P_L_MONITORING_FUNC
-			if[ $? -eq 0 ]; then
-				logger -s "Monitoring script updated at $TARIH"
+			if[ $? -eq 0 ]; 
+				then
+					logger -s "Monitoring script updated at "$TARIH
 			fi
 
 	done
@@ -78,8 +80,9 @@ else
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST $P_L_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC $P_L_BLACKLIST_FUNC
-			if[ $? -eq 0 ]; then
-				logger -s "Blacklist script updated at $TARIH"
+			if[ $? -eq 0 ]; 
+				then
+					logger -s "Blacklist script updated at "$TARIH
 			fi			
 	done
 
@@ -87,8 +90,9 @@ else
 		do
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER
-			if[ $? -eq 0 ]; then
-				logger -s "Git checker script updated at $TARIH"
+			if[ $? -eq 0 ]; 
+				then
+					logger -s "Git checker script updated at "$TARIH
 			fi			
 	done
 
