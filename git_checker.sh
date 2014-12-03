@@ -22,7 +22,7 @@ F_S_LOGGER=dhcplistcronsmb.sh
 F_S_LOGGER_TOOL=killactivetcpdump.sh
 F_S_MONITORING=monitorservice.sh
 F_S_MONITORING_FUNC=stats_func.sh
-F_S_GIT_CHECKER=git_check.sh
+F_S_GIT_CHECKER=git_checker.sh
 
 # path of scripts in local system that known by env
 P_L_BLACKLIST=/sbin
@@ -88,7 +88,7 @@ else
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER
 			if[ $? -eq 0 ]; then
-				logger -s "Git check script updated at $TARIH"
+				logger -s "Git checker script updated at $TARIH"
 			fi			
 	done
 
