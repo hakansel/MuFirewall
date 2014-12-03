@@ -33,13 +33,6 @@ P_L_MONITORING=/sbin
 P_L_MONITORING_FUNC=/home/monitoring
 P_L_CHECKER=/sbin
 
-#if [ ! -d $P_GIT_PROJECT ];
-# 	then
-#	 	$EXC_MKDIR -p $P_GIT_PROJECT
-#	 	cd $P_GIT_PROJECT
-#	 	$EXC_GIT clone $GIT_ADDR
-#fi
-
 cd $P_GIT_PROJECT
 
 RES_PULL=`/usr/local/bin/git pull`
@@ -51,6 +44,7 @@ else
 	#replace new files with the old one until there are no running script. 
 	while [ `ps aux | grep $F_S_LOGGER | grep -v grep | wc -l` -eq 0 ];
 		do
+			echo $F_S_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER $P_L_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
@@ -59,6 +53,7 @@ else
 
 	while [ `ps aux | grep $F_S_MONITORING | grep -v grep | wc -l` -eq 0 ];
 		do
+			echo $F_S_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING $P_L_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
@@ -67,6 +62,7 @@ else
 
 	while [ `ps aux | grep $F_S_BLACKLIST | grep -v grep | wc -l` -eq 0 ];
 		do
+			echo $F_S_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST $P_L_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
@@ -75,6 +71,7 @@ else
 
 	while [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` -eq 0 ];
 		do
+			echo $F_S_GIT_CHECKER
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER			
 	done
