@@ -11,8 +11,8 @@ cd $MONITORING_PATH
 
 ./$MONITORING_SCRIPT > $MONITORING_PATH/$MONITORING_FILE
 
-#/usr/local/bin/curl -H "Content-Type: application/json" -X POST --data @$MONITORING_FILE --url http://20.0.0.15:91/MaviUcakFirewallService.svc/json/MonitoringPackageUpload
-/usr/local/bin/curl -H "Content-Type: application/json" -X POST --data @$MONITORING_FILE --url http://httpbin.org/post 
+/usr/local/bin/curl -H "Content-Type: application/json" -X POST --data @$MONITORING_FILE --url http://20.0.0.15:91/MaviUcakFirewallService.svc/json/MonitoringPackageUpload
+#/usr/local/bin/curl -H "Content-Type: application/json" -X POST --data @$MONITORING_FILE --url http://httpbin.org/post 
 
 if [ $? -ne 0 ]
 then
