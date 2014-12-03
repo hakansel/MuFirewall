@@ -33,12 +33,12 @@ P_L_MONITORING=/sbin
 P_L_MONITORING_FUNC=/home/monitoring
 P_L_CHECKER=/sbin
 
-if [ ! -d $P_GIT_PROJECT ];
- 	then
-	 	$EXC_MKDIR -p $P_GIT_PROJECT
-	 	cd $P_GIT_PROJECT
-	 	$EXC_GIT clone $GIT_ADDR
-fi
+#if [ ! -d $P_GIT_PROJECT ];
+# 	then
+#	 	$EXC_MKDIR -p $P_GIT_PROJECT
+#	 	cd $P_GIT_PROJECT
+#	 	$EXC_GIT clone $GIT_ADDR
+#fi
 
 cd $P_GIT_PROJECT
 
