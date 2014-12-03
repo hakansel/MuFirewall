@@ -37,7 +37,7 @@ if [ ! -d $P_GIT_PROJECT ];
  	then
 	 	$EXC_MKDIR -p $P_GIT_PROJECT
 	 	cd $P_GIT_PROJECT
-	 	$EXC_GIT pull $GIT_ADDR
+	 	$EXC_GIT clone $GIT_ADDR
 fi
 
 cd $P_GIT_PROJECT
@@ -55,10 +55,6 @@ else
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER $P_L_LOGGER
 			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER_TOOL $P_L_LOGGER_FUNC
-			if[ $? -eq 0 ]; 
-				then
-					logger -s "Logger script updated at "$TARIH
-			fi
 	done
 
 	while [ `ps aux | grep $F_S_MONITORING | grep -v grep | wc -l` -eq 0 ];
@@ -67,11 +63,6 @@ else
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING $P_L_MONITORING
 			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING_FUNC $P_L_MONITORING_FUNC
-			if[ $? -eq 0 ]; 
-				then
-					logger -s "Monitoring script updated at "$TARIH
-			fi
-
 	done
 
 	while [ `ps aux | grep $F_S_BLACKLIST | grep -v grep | wc -l` -eq 0 ];
@@ -79,21 +70,13 @@ else
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST $P_L_BLACKLIST
 			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
-			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC $P_L_BLACKLIST_FUNC
-			if[ $? -eq 0 ]; 
-				then
-					logger -s "Blacklist script updated at "$TARIH
-			fi			
+			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC $P_L_BLACKLIST_FUNC		
 	done
 
 	while [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` -eq 0 ];
 		do
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
-			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER
-			if[ $? -eq 0 ]; 
-				then
-					logger -s "Git checker script updated at "$TARIH
-			fi			
+			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER			
 	done
 
 fi
