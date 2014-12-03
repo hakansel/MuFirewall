@@ -7,7 +7,7 @@ TARIH=`date "+%Y%m%d-%H%M%S"`
 EXC_CP=/bin/cp
 EXC_MKDIR=/bin/mkdir
 EXC_GIT=/usr/local/bin/git
-EXC_CHMOD=/bin/chmods
+EXC_CHMOD=/bin/chmod
 
 # path of git project on local
 P_GIT_PROJECT=/home/MuFirewall
@@ -51,31 +51,31 @@ else
 	#replace new files with the old one until there are no running script. 
 	while [ `ps aux | grep $F_S_LOGGER | grep -v grep | wc -l` -eq 0 ];
 		do
-			#$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER
+			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER $P_L_LOGGER
-			#$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
+			$EXC_CHMOD +x $P_GIT_LOGGER/$F_S_LOGGER_TOOL
 			$EXC_CP $P_GIT_LOGGER/$F_S_LOGGER_TOOL $P_L_LOGGER_FUNC
 	done
 
 	while [ `ps aux | grep $F_S_MONITORING | grep -v grep | wc -l` -eq 0 ];
 		do
-			#$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING
+			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING $P_L_MONITORING
-			#$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
+			$EXC_CHMOD +x $P_GIT_MONITORING/$F_S_MONITORING_FUNC
 			$EXC_CP $P_GIT_MONITORING/$F_S_MONITORING_FUNC $P_L_MONITORING_FUNC
 	done
 
 	while [ `ps aux | grep $F_S_BLACKLIST | grep -v grep | wc -l` -eq 0 ];
 		do
-			#$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST
+			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST $P_L_BLACKLIST
-			#$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
+			$EXC_CHMOD +x $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC $P_L_BLACKLIST_FUNC		
 	done
 
 	while [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` -eq 0 ];
 		do
-			#$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
+			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER			
 	done
 
