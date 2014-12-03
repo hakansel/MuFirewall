@@ -66,7 +66,7 @@ else
 			$EXC_CP $P_GIT_BLACKLIST/$F_S_BLACKLIST_FUNC $P_L_BLACKLIST_FUNC		
 	fi
 
-	if [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` == 0 ];
+	if [ `ps aux | grep $F_S_GIT_CHECKER | grep -v grep | wc -l` == 1 ];
 		then
 			$EXC_CHMOD +x $P_GIT_PROJECT/$F_S_GIT_CHECKER
 			$EXC_CP $P_GIT_PROJECT/$F_S_GIT_CHECKER $P_L_CHECKER			
