@@ -1,7 +1,11 @@
 #!/usr/local/bin/php -f
 <?php
 
-require_once("/home/monitoring/functions.inc.php");
+require_once("/usr/local/www/includes/functions.inc.php");
+
+$tcpdump_log_file = "/home/trafficlog/tcpdumplog_date";
+$auth_log_file = "/home/trafficlog/authlog_date";
+$dhcp_log_file = "/home/trafficlog/dhcplog_date";
 
 $ip = `/sbin/ifconfig re1 | /usr/bin/grep 'inet ' | /usr/bin/awk '{print $2}'`;
 $ip = chop($ip, "\n");
@@ -33,9 +37,42 @@ $monitoring_func_version = `/bin/ls -l -D %Y%m%d-%H%M%S /home/monitoring/stats_f
 $monitoring_func_version = chop($monitoring_func_version, "\n");
 $config_update = `/bin/ls -l -D %Y%m%d-%H%M%S /cf/conf/config.xml | awk '{ print $6 }'`;
 $config_update = chop($config_update, "\n");
+if(file_exists($tcpdump_log_file))
+{
+	$tcpdump_log_date = file_get_contents($tcpdump_log_file);
+	$tcpdump_log_date = chop($tcpdump_log_date, "\n");
+}
+else
+{
+	$tcpdump_log_date = "No version for tcpdump log.";
+}
 
-$stats = array('ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update, 'loggerFuncVersion' => $logger_func_version, 'blacklistFuncVersion' => $blacklist_func_version, 'monitoringFuncVersion' => $monitoring_func_version);
+if(file_exists($dhcp_log_file))
+{
+	$dhcp_log_date = file_get_contents($dhcp_log_file);
+	$dhcp_log_date = chop($dhcp_log_date, "\n");
+}
+else
+{
+	$dhcp_log_date = "No version for dhcp log.";
+}
+if(file_exists($auth_log_file))
+{
+	$auth_log_date = file_get_contents($auth_log_file);
+	$auth_log_date = chop($auth_log_date, "\n");
+}
+else
+{
+	$auth_log_date = "No version for auth log.";
+}
+
+$stats = array('tcpdumpLogVer' => $tcpdump_log_date, 'dhcpLogVer' => $dhcp_log_date, 'authLogVer' => $auth_log_date, 'ip' => $ip, 'monitorTime' => $monitor_time, 'cpuCount' => $cpu_count, 'totalDisk' => $total_disk, 'usedDisk' => $used_disk, 'availDisk' => $avail_disk, 'cpuUsage' => $cpu, 'memUsage' => $mem, 'update' => $update, 'diskUsage' => $disk, 'upTime' => $uptime, 'blacklistVersion' => $blacklist_version, 'loggerVersion' => $logger_version, 'monitoringVersion' => $monitoring_version, 'lastConfigUpdate' => $config_update, 'loggerFuncVersion' => $logger_func_version, 'blacklistFuncVersion' => $blacklist_func_version, 'monitoringFuncVersion' => $monitoring_func_version);
 echo json_encode($stats);
+
+function mu_update_date_time() {
+    $datetime = date("Ymd-His");
+    return $datetime;
+}
 
 // you can use it, if you change json with xml format.
 function xml_encode($mixed, $domElement=null, $DOMDocument=null) {

@@ -4,7 +4,7 @@ define("SGBAR_SIZE",     "450");
     $incl = "/usr/local/pkg/squidguard_configurator.inc";
     if (file_exists($incl)) {
         require_once($incl);
-        sg_reconfigure_blacklist( "ftp://20.0.0.15:21/shallalist.tar.gz", "" );
+        sg_reconfigure_blacklist( "ftp://10.10.10.10:21/shallalist.tar.gz", "" );
 	# Activity
     	# Rebuild progress /check SG rebuild process/
     	if (is_squidGuardProcess_rebuild_started()) {
