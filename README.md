@@ -1,5 +1,5 @@
 # MuFirewall
-Scripts to use in firewall system
+Scripts to use in firewall system(*nix box)
 
   Project aims make automate the pfSense firewall system(especially large scale # of pfSenses). With these scripts, pfSenses
 can be monitored, logged, some features updatable.
