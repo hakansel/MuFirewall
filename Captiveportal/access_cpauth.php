@@ -1,14 +1,12 @@
 #!/usr/local/bin/php -f
 <?php
-//!HHATODO: access.log yoksa bunu bir loga basmasi ya da bir ikaz mekanizmasi gelistirilmeli.
+//!HHATODO: log or alert email, sms etc if there is not access.log file
 $squid_log_file = '/var/squid/logs/access.log';
 
 while (true) {
-//     # code...
     $logarr = mu_squid_fetch_log($squid_log_file);
     
     foreach ($logarr as $value) {
-        # code...
         $logline = preg_split("/\s+/", $value);
     }
 
@@ -29,7 +27,7 @@ function mu_squid_fetch_log($squid_log_file){
     return $logline;
 };
 
-//!HHATODO: mu_zone isminde bir captiveportal yoksa eger bunu bir loga basmasi ya da bir ikaz mekanizmasi gelistirilmeli.
+//!HHATODO: log or alert email, sms etc if there is not captiveportalmu_zone.db or different name.
 function mu_captiveportal_opendb() {
         global $g, $cpzone;
 
