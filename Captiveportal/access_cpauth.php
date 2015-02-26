@@ -3,10 +3,11 @@
 //!HHATODO: log or alert email, sms etc if there is not access.log file
 $squid_log_file = '/var/squid/logs/access.log';
 $line = exec("wc -l {$squid_log_file} | awk '{print $1}'");
+$bool_first = true;
 while (true) {
 
     $curr_line = exec("wc -l {$squid_log_file} | awk '{print $1}'");
-    if($line < $curr_line) {
+    if(($line <= $curr_line) && !($first)) {
         $logarr = mu_squid_fetch_log($squid_log_file);
         
         foreach ($logarr as $value) {
@@ -19,6 +20,7 @@ while (true) {
             shell_exec("logger -s access -t {$user[0][0]} {$logline[2]} {$logline[6]} {$logline[8]}");
         }
         $line++;
+        $bool_first = false;
     } else {
         sleep(60);
     }
