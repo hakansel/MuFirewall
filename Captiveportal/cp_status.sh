@@ -3,6 +3,9 @@
 
 #require_once("/etc/inc/captiveportal.inc");
 
+# in php, shell command with pipe  it gets pipes to, too. So return val cropped.
+$cpzone = `/bin/ps -ax | /usr/bin/grep captiveportal | /usr/bin/grep .pid | /usr/bin/awk '{print $9}'`;
+$cpzone = substr($cpzone, 0, -5);
 $cpdb = mu_captiveportal_read_db();
 
 foreach($cpdb as $res){
@@ -16,11 +19,11 @@ foreach($cpdb as $res){
 function mu_captiveportal_opendb() {
         global $g, $cpzone;
 
-        if (file_exists("/var/db/captiveportalmu_zone.db"))
-                $DB = @sqlite_open("/var/db/captiveportalmu_zone.db");
+        if (file_exists("/var/db/captiveportal{$cpzone}.db"))
+                $DB = @sqlite_open("/var/db/captiveportal{$cpzone}.db");
         else {
                 $errormsg = "";
-                $DB = @sqlite_open("/var/db/captiveportalmu_zone.db");
+                $DB = @sqlite_open("/var/db/captiveportal{$cpzone}.db");
                 if (@sqlite_exec($DB, "CREATE TABLE captiveportal (allow_time INTEGER, pipeno INTEGER, ip TEXT, mac TEXT, us
 ername TEXT, sessionid TEXT, bpassword TEXT, session_timeout INTEGER, idle_timeout INTEGER, session_terminate_time INTEGER,
 interim_interval INTEGER, radiusctx TEXT) ", $errormsg)) {
