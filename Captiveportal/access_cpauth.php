@@ -17,7 +17,7 @@ while (true) {
         if($logline[1] != $sid) {
             $sid = $logline[1];
             $user = mu_get_cp_user_by_ip($logline[2]);
-            shell_exec("logger -s access -t {$user[0][0]} {$logline[2]} {$logline[6]} {$logline[8]}");
+            shell_exec("logger -s cpacc -t {$user[0][0]} - {$logline[2]} {$logline[6]} {$logline[8]}");
         }
         $line++;
         $bool_first = false;
@@ -43,10 +43,10 @@ function mu_squid_fetch_log($squid_log_file){
 function mu_captiveportal_opendb() {
         global $g, $cpzone;
 
-        if (file_exists("/var/db/captiveportalmu_zone.db"))
-                $DB = @sqlite_open("/var/db/captiveportalmu_zone.db");
+        if (file_exists("/var/db/captiveportalcfm_zone.db"))
+                $DB = @sqlite_open("/var/db/captiveportalcfm_zone.db");
         else {
-                $errormsg = "There are no database with captiveportalmu_zone.db";
+                $errormsg = "There are no database with captiveportalcfm_zone.db";
                 captiveportal_syslog("Error during table mu_zone creation. Error message: {$errormsg}");
         }
 
