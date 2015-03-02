@@ -1,6 +1,5 @@
 #!/bin/sh
-# This file was automatically generated
-# by the pfSense service handler.
+#  This file should be added to /usr/local/etc/rc.d
 
 rc_start() {
         if [ -z "`ps auxw | grep "cp_access.sh`" ];then
