@@ -1,5 +1,5 @@
 #!/bin/sh
-service="cpacc.sh cron syslogd squid.sh radisud"
+service="cpaccd.sh cron syslogd squid.sh radisud"
 # lower limit 5 min.
 check_time_low="300"
 # upper limig 7 min.
