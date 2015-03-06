@@ -74,7 +74,7 @@ tib_diff=$(($c_date - $pt_date))
 
 if [ $tib_diff -gt $CONTROL_TIME ]; then
 	pt_status=`/bin/cat $P_T_LOG_FOLDER/$N_IS_LOG_DHCP`
-	if [ "$pt_status" != "1" ]; then
+	if [ "$pt_status" == "1" ]; then
 #/usr/local/bin/smbclient \\\\20.0.0.15\\MerkezLogFile -U hakan%"Passw0rd" -W  -N -c "prompt; put dhcplog-$tarih.txt"
 /usr/local/bin/lftp -c "set ssl:verify-certificate no; open -u logpusher,logpusher11 10.100.1.12; put -O $REMOTE_TIB_LOG_FOLDER dhcplog-$FW_IP-$tarih.txt"
 		if [ $? -eq 0 ]; then
@@ -91,7 +91,7 @@ auth_diff=$(($c_date - $pa_date))
 
 if [ $auth_diff -gt $CONTROL_TIME ]; then
 	pa_status=`/bin/cat $P_T_LOG_FOLDER/$N_IS_LOG_AUTH`
-	if [ "$pa_status" != "1" ]; then
+	if [ "$pa_status" == "1" ]; then
 #/usr/local/bin/smbclient \\\\20.0.0.15\\MerkezLogFile -U hakan%"Passw0rd" -W  -N -c "prompt; put $AUTH_LOG_FILE-$tarih.txt"
 /usr/bin/tar -cvzf $P_T_LOG_FOLDER/$N_COMPRESS_AUTH $AUTH_LOG_FILE-$FW_IP-$tarih.txt
 /usr/local/bin/lftp -c "set ssl:verify-certificate no; open -u logpusher,logpusher11 10.100.1.12; put -O $REMOTE_LOG_FOLDER $N_COMPRESS_AUTH"
@@ -113,15 +113,14 @@ rm dhcplog-$FW_IP-$tarih.txt $AUTH_LOG_FILE-$FW_IP-$tarih.txt
 #
 #	squid access log events.
 # START
-
+cp $P_ACCESS_LOG_FILE/$ACCESS_LOG_FILE $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt
 cd $P_ACCESS_LOG_FILE
 HAS_T_ACCESS_LOG_FILE_NUMBER=`ls $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`
 if [ -n "$HAS_T_ACCESS_LOG_FILE_NUMBER" ]; then
 	prev_line_number=`/bin/cat $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`
-	cp $P_ACCESS_LOG_FILE/$ACCESS_LOG_FILE $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt
 	`/usr/bin/tail -n $prev_line_number $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt > $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt`
 else
-	cp $P_ACCESS_LOG_FILE/$ACCESS_LOG_FILE $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt
+	cp $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt
 fi
 
 cd $P_T_LOG_FOLDER
@@ -140,19 +139,19 @@ if [ $access_diff -gt $CONTROL_TIME ]; then
 	HAS_T_ACCESS_LOG_FILE=`ls $P_T_LOG_FOLDER/$N_LOG_ACCESS`
 	if [ -n "$HAS_T_ACESS_LOG_FILE"]; then
 		pac_status=`/bin/cat $P_T_LOG_FOLDER/$N_IS_LOG_ACCESS`
-		if [ "$pac_status" != "1" ]; then
+		if [ "$pac_status" == "1" ]; then
 	/usr/local/bin/lftp -c "set ssl:verify-certificate no; open -u logpusher,logpusher11 10.100.1.12; put -O $REMOTE_ACCESS_LOG_FOLDER $N_COMPRESS_ACCESSLOG"
 			if [ $? -eq 0 ]; then
 					date_acc=`date "+%s"`
 					echo $date_acc > $P_T_LOG_FOLDER/$N_LOG_ACCESS
 					echo "1" > $P_T_LOG_FOLDER/$N_IS_LOG_ACCESS
-					`/usr/bin/wc -l $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt | /usr/bin/awk '{ print $1 }' > $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`		
+					`/usr/bin/wc -l $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt | /usr/bin/awk '{ print $1 }' > $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`		
 			fi
 		fi
 	fi
 fi
 
-rm accesslog-$FW_IP-$tarih.txt $ACCESS_LOG_FILE-$FW_IP-$tarih.txt $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt
+rm $ACCESS_LOG_FILE-$FW_IP-$tarih.txt $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt
 
 # END
 
