@@ -118,7 +118,9 @@ cd $P_ACCESS_LOG_FILE
 HAS_T_ACCESS_LOG_FILE_NUMBER=`ls $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`
 if [ -n "$HAS_T_ACCESS_LOG_FILE_NUMBER" ]; then
 	prev_line_number=`/bin/cat $P_T_LOG_FOLDER/$N_ACCESS_LOG_LINE_NUMBER`
-	`/usr/bin/tail -n $prev_line_number $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt > $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt`
+	curr_line_number=`/usr/bin/wc -l $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt | /usr/bin/awk '{ print $1 }'`
+	diff_line_number=$(($curr_line_number - $prev_line_number))
+	`/usr/bin/tail -n $diff_line_number $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt > $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt`
 else
 	cp $P_T_LOG_FOLDER/$TEMP_ACCESS_LOG_FILE-$FW_IP-$tarih.txt $P_T_LOG_FOLDER/$ACCESS_LOG_FILE-$FW_IP-$tarih.txt
 fi
